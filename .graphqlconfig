@@ -1,0 +1,18 @@
+{
+  "projects": {
+    "app": {
+      "schemaPath": "schema.graphql",
+      "includes": ["**/*.js", "**/*.graphql", "**/*.gql"],
+      "extensions": {
+        "endpoints": {
+          "development": {
+            "url": "http://nmarchuk.pythonanywhere.com/graphql",
+            "headers": {
+              "Authorization": "Bearer ${env:API_TOKEN}"
+            }
+          }
+        }
+      }
+    }
+  }
+}

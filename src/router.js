@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
+import store from "./store";
 
 Vue.use(Router);
 
@@ -11,16 +11,56 @@ export default new Router({
     {
       path: "/",
       name: "home",
-      component: Home
+      redirect: { name: "workspaces" }
     },
     {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
+      path: "/auth",
+      name: "auth",
       component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
+        import(/* webpackChunkName: "auth" */ "./views/Auth.vue"),
+      children: [
+        {
+          path: "login",
+          name: "login",
+          beforeEnter: alreadyAuthedGuard,
+          component: () =>
+            import(/* webpackChunkName: "auth" */ "./views/Login.vue")
+        }
+      ]
+    },
+    {
+      path: "/workspaces",
+      name: "workspaces",
+      beforeEnter: authGuard,
+      component: () =>
+        import(/* webpackChunkName: "workspaces" */ "./views/Workspaces.vue")
+    },
+    {
+      path: "/workspaces/:id",
+      name: "workspace",
+      beforeEnter: authGuard,
+      props: true,
+      component: () =>
+        import(/* webpackChunkName: "workspaces" */ "./views/Workspace.vue")
     }
   ]
 });
+
+/**
+ * AUTH GUARD
+ */
+function authGuard(to, from, next) {
+  if (store.getters.is_logged_in) {
+    next();
+  } else {
+    next({ name: "login" });
+  }
+}
+
+function alreadyAuthedGuard(to, from, next) {
+  if (store.getters.is_logged_in) {
+    next({ name: "home" });
+  } else {
+    next();
+  }
+}

@@ -1,0 +1,179 @@
+# source: http://nmarchuk.pythonanywhere.com/graphql
+# timestamp: Fri Jun 21 2019 14:34:21 GMT+0300 (EEST)
+
+type AddHoliday {
+  ok: Boolean
+  holiday: Holiday
+}
+
+type AddMember {
+  ok: Boolean
+}
+
+type Balance {
+  id: ID!
+  userId: Int!
+  balanceType: String!
+  amount: Int!
+}
+
+type CreateCalendar {
+  ok: Boolean
+  calendar: WorkspaceHolidayCalendar
+}
+
+type CreateDayOff {
+  ok: Boolean
+  dayOff: DayOff
+}
+
+type CreateWorkspace {
+  ok: Boolean
+  ws: Workspace
+}
+
+"""
+The `Date` scalar type represents a Date
+value as specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar Date
+
+"""
+The `DateTime` scalar type represents a DateTime
+value as specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar DateTime
+
+type DayOff {
+  id: ID!
+  userId: Int!
+  approvedById: Int
+  leaveType: LeaveTypes!
+  startDate: String!
+  endDate: String!
+  workspaceId: Int!
+  comment: String
+  user: Profile
+  approvedBy: Profile
+  workspace: Workspace
+}
+
+type Holiday {
+  id: ID!
+  name: String!
+  calendarId: Int
+  date: String!
+}
+
+"""An enumeration."""
+enum LeaveTypes {
+  SICK_LEAVE
+  VACATION_PAID
+  VACATION_UNPAID
+  WFH
+}
+
+type Login {
+  ok: Boolean
+  accessToken: String
+  refreshToken: String
+}
+
+type Mutation {
+  login(email: String, password: String): Login
+  register(email: String, password: String, userData: UserData): Register
+  createDayOff(comment: String, endDate: Date, startDate: Date, type: String, workspaceId: Int): CreateDayOff
+  createWorkspace(description: String, members: [String], name: String): CreateWorkspace
+  addWorkspaceMember(email: String, startDate: Date, wsId: Int): AddMember
+  removeWorkspaceMember(email: String, wsId: Int): RemoveMember
+  createWorkspaceCalendar(name: String, wsId: Int): CreateCalendar
+  removeWorkspaceCalendar(id: Int): RemoveCalendar
+  addHoliday(calendarId: Int, date: Date, name: String): AddHoliday
+  removeHoliday(id: Int): RemoveHoliday
+}
+
+type Profile {
+  userId: ID!
+  firstName: String
+  lastName: String
+  position: String
+  phone: String
+  email: String!
+  user: User
+}
+
+type Query {
+  userByName(email: String!): User
+  myLeaves(workspaceId: Int!): [DayOff]
+  myBalance: [Balance]
+  balanceByUser(email: String!): [Balance]
+  profile: Profile
+  myWorkspaces: [Workspace]
+  workspaceById(workspaceId: Int!): Workspace
+  workspaceOwner(workspaceId: Int!): Profile
+  workspaceInvitations(workspaceId: Int!): [WorkspaceInvitation]
+  workspaceCalendars(workspaceId: Int!): [WorkspaceHolidayCalendar]
+  workspaceCalendarById(calendarId: Int!): WorkspaceHolidayCalendar
+  calendarHolidays(calendarId: Int!): [Holiday]
+  teamCalendar(workspaceId: Int!): [DayOff]
+}
+
+type Register {
+  ok: Boolean
+  userId: Int
+  accessToken: String
+  refreshToken: String
+}
+
+type RemoveCalendar {
+  ok: Boolean
+}
+
+type RemoveHoliday {
+  ok: Boolean
+}
+
+type RemoveMember {
+  ok: Boolean
+}
+
+type User {
+  id: ID!
+  createdTime: DateTime!
+  email: String!
+}
+
+input UserData {
+  firstName: String
+  lastName: String
+}
+
+type Workspace {
+  id: ID!
+  name: String!
+  description: String
+  invitationLinkToken: String
+}
+
+type WorkspaceHolidayCalendar {
+  id: ID!
+  name: String!
+  wsId: Int
+}
+
+type WorkspaceInvitation {
+  id: ID!
+  email: String!
+  wsId: Int!
+  status: WorkspaceInvitationStatus!
+  startDate: String
+}
+
+"""An enumeration."""
+enum WorkspaceInvitationStatus {
+  ACCEPTED
+  PENDING
+  REVOKED
+}
