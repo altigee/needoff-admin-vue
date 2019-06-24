@@ -16,12 +16,14 @@ export default new Router({
     {
       path: "/auth",
       name: "auth",
+      redirect: { name: "login" },
       component: () =>
         import(/* webpackChunkName: "auth" */ "./views/Auth.vue"),
       children: [
         {
           path: "login",
           name: "login",
+          meta: { layout: "simple" },
           beforeEnter: alreadyAuthedGuard,
           component: () =>
             import(/* webpackChunkName: "auth" */ "./views/Login.vue")

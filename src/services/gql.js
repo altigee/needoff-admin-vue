@@ -8,12 +8,14 @@ export async function request(query, { variables } = {}) {
 
   try {
     return await client.request(query, variables);
-  } catch (error) {
-    if (isTokenExpiredError(error)) {
+  } catch (erroredResponse) {
+    const { errors } = erroredResponse.response;
+
+    if (isTokenExpiredError(errors)) {
       store.dispatch("logoutUser");
     }
 
-    throw error;
+    throw erroredResponse;
   }
 }
 
@@ -27,8 +29,7 @@ export function getBaseHeaders() {
   };
 }
 
-function isTokenExpiredError(error) {
-  const { errors } = error.response;
+function isTokenExpiredError(errors) {
   const messages = errors.map(err => err.message);
   const is_token_expired = messages.includes("Invalid token.");
   return is_token_expired;

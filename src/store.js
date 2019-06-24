@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import router from "./router";
 
 Vue.use(Vuex);
 
@@ -27,6 +28,7 @@ export default new Vuex.Store({
     logoutUser({ commit }) {
       localStorage.removeItem("access_token");
       commit("SET_ACCESS_TOKEN", "");
+      router.push({ name: "login" });
     },
     setCurrentUser({ commit }, user) {
       commit("SET_CURRENT_USER", user);

@@ -1,9 +1,5 @@
 <template>
-  <div>
-    <h3>Auth page</h3>
-    <pre><code>logged in: {{ is_logged_in }}</code></pre>
-    <router-view></router-view>
-  </div>
+  <router-view></router-view>
 </template>
 
 <script>

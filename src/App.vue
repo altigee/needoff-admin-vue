@@ -1,29 +1,25 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link :to="{ name: 'login' }">Login&nbsp;</router-link>|
-      <router-link :to="{ name: 'workspaces' }">Workspaces&nbsp;</router-link>
-    </div>
-    <router-view />
-  </div>
+  <v-app>
+    <component :is="layout">
+      <router-view></router-view>
+    </component>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import SimpleLayout from "./layouts/SimpleLayout";
+import AppLayout from "./layouts/AppLayout";
+
+const LAYOUTS = {
+  simple: SimpleLayout
+};
+
+export default {
+  name: "App",
+  computed: {
+    layout() {
+      return LAYOUTS[this.$route.meta.layout] || AppLayout;
     }
   }
-}
-</style>
+};
+</script>

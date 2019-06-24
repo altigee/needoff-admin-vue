@@ -1,14 +1,13 @@
 import Vue from "vue";
-import { format } from "date-fns";
+import VeeValidate from "vee-validate";
+import "./plugins/vuetify";
+import "./plugins/filters";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
 Vue.config.productionTip = false;
-
-Vue.filter("date", function(value) {
-  return format(value, "DD MMM YYYY").toUpperCase();
-});
+Vue.use(VeeValidate);
 
 new Vue({
   router,
