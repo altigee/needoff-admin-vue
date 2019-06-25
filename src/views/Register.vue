@@ -1,19 +1,44 @@
 <template>
-  <v-form @submit="onLoginSubmit">
+  <v-form @submit="onRegisterSubmit">
     <v-container fluid fill-height>
       <v-layout align-center justify-center>
         <v-flex xs12 sm8 md8>
           <v-card class="elevation-12">
             <v-toolbar dark>
-              <v-toolbar-title>Login</v-toolbar-title>
+              <v-toolbar-title>Register</v-toolbar-title>
             </v-toolbar>
 
             <v-card-text>
+              <v-layout>
+                <v-flex>
+                  <v-text-field
+                    prepend-icon="account_circle"
+                    name="userData.firstName"
+                    label="Given name"
+                    v-model.trim="userData.firstName"
+                    v-validate="'required'"
+                    :error-messages="errors.collect('userData.firstName')"
+                    type="text"
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex ml-2>
+                  <v-text-field
+                    name="userData.lastName"
+                    label="Family name"
+                    v-model.trim="userData.lastName"
+                    v-validate="'required'"
+                    :error-messages="errors.collect('userData.lastName')"
+                    type="text"
+                  ></v-text-field>
+                </v-flex>
+              </v-layout>
+
               <v-text-field
                 prepend-icon="email"
                 name="email"
                 label="Email"
-                v-model="email"
+                v-model.trim="email"
                 v-validate="'required|email'"
                 :error-messages="errors.collect('email')"
                 type="text"
@@ -23,7 +48,7 @@
                 prepend-icon="lock"
                 name="password"
                 label="Password"
-                v-model="password"
+                v-model.trim="password"
                 v-validate="'required'"
                 :error-messages="errors.collect('password')"
                 type="password"
@@ -38,8 +63,8 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn flat :to="{ name: 'register' }">Register</v-btn>
-              <v-btn color="primary" type="submit">Login</v-btn>
+              <v-btn flat :to="{ name: 'login' }">Back to Login</v-btn>
+              <v-btn color="primary" type="submit">Register</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -50,36 +75,40 @@
 
 <script>
 import { mapActions } from "vuex";
-import { login } from "../services/auth.service";
+import { register } from "../services/auth.service";
 
 export default {
   data() {
     return {
-      email: "taras.kharuk@gmail.com",
-      password: "1234",
+      email: "taras.kharuk2@gmail.com",
+      password: "12345",
+      userData: {
+        firstName: " Torson ",
+        lastName: "Khork"
+      },
       be_errors: []
     };
   },
   methods: {
     ...mapActions(["loginUser", "logoutUser"]),
     //
-    async onLoginSubmit(e) {
+    async onRegisterSubmit(e) {
       e.preventDefault();
 
-      try {
-        const is_valid = await this.$validator.validateAll();
+      const is_valid = await this.$validator.validateAll();
 
-        if (is_valid) {
-          const resp = await login({
+      if (is_valid) {
+        try {
+          const resp = await register({
             email: this.email,
+            userData: this.userData,
             password: this.password
           });
 
           this.loginUser(resp.accessToken);
+        } catch (err) {
+          this.be_errors = err.response.errors;
         }
-      } catch (err) {
-        this.be_errors = err.response.errors;
-        console.error(this.be_errors);
       }
     },
 

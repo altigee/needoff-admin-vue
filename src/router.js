@@ -4,7 +4,7 @@ import store from "./store";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
@@ -27,6 +27,14 @@ export default new Router({
           beforeEnter: alreadyAuthedGuard,
           component: () =>
             import(/* webpackChunkName: "auth" */ "./views/Login.vue")
+        },
+        {
+          path: "register",
+          name: "register",
+          meta: { layout: "simple" },
+          beforeEnter: alreadyAuthedGuard,
+          component: () =>
+            import(/* webpackChunkName: "auth" */ "./views/Register.vue")
         }
       ]
     },
@@ -49,6 +57,13 @@ export default new Router({
 });
 
 /**
+ * Update document title with name for better back navigation
+ */
+router.afterEach(({ name }) => {
+  document.title = `Needoff admin | ${name}`;
+});
+
+/**
  * AUTH GUARD
  */
 function authGuard(to, from, next) {
@@ -66,3 +81,5 @@ function alreadyAuthedGuard(to, from, next) {
     next();
   }
 }
+
+export default router;
