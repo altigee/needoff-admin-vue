@@ -20,7 +20,8 @@ export async function request(query, { variables } = {}) {
 }
 
 export function getBaseUrl() {
-  return `http://nmarchuk.pythonanywhere.com/graphql`;
+  // return `http://nmarchuk.pythonanywhere.com/graphql`;
+  return `http://localhost:3344/graphql`;
 }
 
 export function getBaseHeaders() {

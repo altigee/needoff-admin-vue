@@ -24,7 +24,7 @@ export default new Vuex.Store({
     loginUser({ commit }, token) {
       localStorage.setItem("access_token", token);
       commit("SET_ACCESS_TOKEN", token);
-      router.push({ name: "dashboard" });
+      router.push({ name: "home" });
     },
     logoutUser({ commit }) {
       localStorage.removeItem("access_token");

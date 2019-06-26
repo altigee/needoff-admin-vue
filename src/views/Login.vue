@@ -31,9 +31,9 @@
             </v-card-text>
 
             <v-card-text v-if="be_errors.length">
-              <v-alert :value="true" color="error" icon="warning" outline>{{
-                be_errors[0].message
-              }}</v-alert>
+              <v-alert :value="true" color="error" icon="warning" outline>
+                {{ be_errors[0].message }}
+              </v-alert>
             </v-card-text>
 
             <v-card-actions>
@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       email: "taras.kharuk@gmail.com",
-      password: "1234",
+      password: "12345",
       be_errors: []
     };
   },

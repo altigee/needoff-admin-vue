@@ -1,26 +1,41 @@
 <template>
-  <div>
+  <v-layout column full-width>
     <div v-if="loading">Loading...</div>
-    <div v-if="!loading">
-      <h3>Workspaces</h3>
+    <v-layout
+      v-if="!loading"
+      row
+      wrap
+      justify-space-between
+      align-center
+      mb-4
+      no-grow
+    >
+      <v-flex grow>
+        <h3>Workspaces</h3>
+      </v-flex>
 
-      <ul>
-        <li
-          v-for="ws in workspaces"
-          @click="onWorkspaceChoose(ws.id)"
-          v-bind:key="ws.id"
+      <v-flex class="no-grow">
+        <v-btn @click="onAddWorkspaceInitiate" outline color="primary"
+          >Add workspace</v-btn
         >
-          <p>{{ ws.id }} - {{ ws.name }}</p>
-          <p>{{ ws.description }}</p>
-        </li>
-      </ul>
-    </div>
-  </div>
+      </v-flex>
+    </v-layout>
+
+    <ul>
+      <li
+        v-for="ws in workspaces"
+        @click="onWorkspaceChoose(ws.id)"
+        v-bind:key="ws.id"
+      >
+        <p>{{ ws.id }} - {{ ws.name }}</p>
+        <p>{{ ws.description }}</p>
+      </li>
+    </ul>
+  </v-layout>
 </template>
 
 <script>
 import { getWorkspaces } from "../services/workspace.service";
-import router from "../router";
 
 export default {
   data() {
@@ -42,7 +57,10 @@ export default {
   },
   methods: {
     onWorkspaceChoose(id) {
-      router.push({ name: "workspace", params: { id } });
+      this.$router.push({ name: "workspace", params: { id } });
+    },
+    onAddWorkspaceInitiate() {
+      this.$router.push({ name: "add_workspace" });
     }
   }
 };

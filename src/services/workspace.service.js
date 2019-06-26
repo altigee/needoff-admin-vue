@@ -15,6 +15,24 @@ export async function getWorkspaces() {
   return res.myWorkspaces;
 }
 
+export async function createWorkspace({ name, description, members = [] }) {
+  const res = await request(/* GraphQL */ `
+    mutation {
+      createWorkspace(
+        name: "${name}",
+        description: "${description}",
+        members: ${JSON.stringify(members)}
+      ) {
+        ws {
+          id
+        }
+      }
+    }
+  `);
+
+  return res.createWorkspace.ws;
+}
+
 export async function getTeamCalendar(workspaceId) {
   const res = await request(/* GraphQL */ `{
     teamCalendar(workspaceId: ${workspaceId}) {

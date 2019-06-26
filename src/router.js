@@ -1,5 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
+import { capitalize } from "lodash";
+import { prettify } from "./utils/string.utils";
 import store from "./store";
 
 Vue.use(Router);
@@ -46,6 +48,13 @@ const router = new Router({
         import(/* webpackChunkName: "workspaces" */ "./views/Workspaces.vue")
     },
     {
+      path: "/workspaces/new",
+      name: "add_workspace",
+      beforeEnter: authGuard,
+      component: () =>
+        import(/* webpackChunkName: "workspaces" */ "./views/WorkspaceAdd.vue")
+    },
+    {
       path: "/workspaces/:id",
       name: "workspace",
       beforeEnter: authGuard,
@@ -60,7 +69,7 @@ const router = new Router({
  * Update document title with name for better back navigation
  */
 router.afterEach(({ name }) => {
-  document.title = `Needoff admin | ${name}`;
+  document.title = `Needoff admin | ${capitalize(prettify(name))}`;
 });
 
 /**

@@ -1,9 +1,7 @@
 <template>
-  <v-app>
-    <component :is="layout">
-      <router-view></router-view>
-    </component>
-  </v-app>
+  <component :is="layout">
+    <router-view></router-view>
+  </component>
 </template>
 
 <script>
@@ -23,3 +21,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.no-grow {
+  flex-grow: 0;
+}
+</style>
