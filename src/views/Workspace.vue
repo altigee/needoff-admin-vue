@@ -1,36 +1,53 @@
 <template>
-  <div>
-    <h3>Workspace ID: {{ id }}</h3>
-    <hr />
+  <v-layout column>
+    <v-tabs class="no-grow" fixed-tabs>
+      <v-tab key="calendar">Calendar</v-tab>
+      <v-tab>Info</v-tab>
 
-    <h4>Team calendar</h4>
-
-    <ul>
-      <li v-for="vac in vacations" v-bind:key="vac.id">
-        {{ vac.leaveType }}
-        ({{ vac.startDate | date }} - {{ vac.endDate | date }}) -
-        {{ vac.user.firstName }} {{ vac.user.lastName }}
-      </li>
-    </ul>
-  </div>
+      <v-tab-item key="calendar">
+        <v-card flat>
+          <workspace-calendar :data="calendar" :loading="loading" />
+        </v-card>
+      </v-tab-item>
+      <v-tab-item>
+        <v-card flat>
+          <workspace-info :id="id" />
+        </v-card>
+      </v-tab-item>
+    </v-tabs>
+  </v-layout>
 </template>
 
 <script>
-import { getTeamCalendar } from "../services/workspace.service";
+import WorkspaceInfo from "./WorkspaceInfo";
+import WorkspaceCalendar from "./WorkspaceCalendar";
+import { getWorkspaceCalendar } from "../services/workspace.service";
+import { setDocPageTitle } from "../utils/browser.utils";
 
 export default {
+  components: {
+    WorkspaceInfo,
+    WorkspaceCalendar
+  },
   props: ["id"],
   data() {
     return {
-      loading: false,
-      vacations: []
+      loading: true,
+      activeTab: "calendar",
+      ws: {},
+      calendar: []
     };
   },
   async mounted() {
     this.loading = true;
 
     try {
-      this.vacations = await getTeamCalendar(this.id);
+      const data = await getWorkspaceCalendar(this.id);
+
+      this.ws = data.workspaceById;
+      this.calendar = data.teamCalendar;
+
+      setDocPageTitle(this.ws.name);
     } catch (error) {
       console.error(error);
     }

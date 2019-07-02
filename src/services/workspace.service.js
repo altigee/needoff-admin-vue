@@ -33,8 +33,23 @@ export async function createWorkspace({ name, description, members = [] }) {
   return res.createWorkspace.ws;
 }
 
-export async function getTeamCalendar(workspaceId) {
-  const res = await request(/* GraphQL */ `{
+export async function getWorkspace(workspaceId) {
+  const res = await request(/* GraphQL */ ` {
+    workspaceById(workspaceId: ${workspaceId}) {
+      name
+      description
+    }
+  }`);
+
+  return res.workspaceById;
+}
+
+export function getWorkspaceCalendar(workspaceId) {
+  return request(/* GraphQL */ `{
+    workspaceById(workspaceId: ${workspaceId}) {
+      name
+      description
+    }
     teamCalendar(workspaceId: ${workspaceId}) {
       id
       leaveType
@@ -53,6 +68,4 @@ export async function getTeamCalendar(workspaceId) {
       comment
     }
   }`);
-
-  return res.teamCalendar;
 }

@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import { capitalize } from "lodash";
-import { prettify } from "./utils/string.utils";
+import { setDocPageTitle } from "./utils/browser.utils";
 import store from "./store";
 
 Vue.use(Router);
@@ -69,7 +68,7 @@ const router = new Router({
  * Update document title with name for better back navigation
  */
 router.afterEach(({ name }) => {
-  document.title = `Needoff admin | ${capitalize(prettify(name))}`;
+  setDocPageTitle(name);
 });
 
 /**
