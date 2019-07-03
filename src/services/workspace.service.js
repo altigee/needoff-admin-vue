@@ -69,3 +69,21 @@ export function getWorkspaceCalendar(workspaceId) {
     }
   }`);
 }
+
+export async function getWorkspaceMembers(workspaceId) {
+  const res = await request(/* GraphQL */ `
+    {
+      workspaceMembers(workspaceId: ${workspaceId}) {
+        userId
+        startDate
+        profile {
+          firstName
+          lastName
+          email
+        }
+      }
+    }
+  `);
+
+  return res.workspaceMembers;
+}

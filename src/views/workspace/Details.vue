@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { getWorkspace } from "../services/workspace.service";
+import { getWorkspace } from "../../services/workspace.service";
 
 export default {
   props: ["id"],

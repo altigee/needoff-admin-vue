@@ -3,6 +3,7 @@ import Vuetify from "vuetify/lib";
 import "vuetify/src/stylus/app.styl";
 
 import PageSpinner from "../components/PageSpinner";
+import TransitionPage from "../components/TransitionPage";
 
 Vue.use(Vuetify, {
   iconfont: "md",
@@ -12,3 +13,4 @@ Vue.use(Vuetify, {
 });
 
 Vue.component("PageSpinner", PageSpinner);
+Vue.component("TransitionPage", TransitionPage);

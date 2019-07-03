@@ -55,11 +55,44 @@ const router = new Router({
     },
     {
       path: "/workspaces/:id",
-      name: "workspace",
       beforeEnter: authGuard,
       props: true,
       component: () =>
-        import(/* webpackChunkName: "workspaces" */ "./views/Workspace.vue")
+        import(/* webpackChunkName: "workspaces" */ "./views/Workspace.vue"),
+      children: [
+        {
+          path: "",
+          name: "workspace",
+          redirect: { name: "workspace-calendar" }
+        },
+        {
+          path: "calendar",
+          name: "workspace-calendar",
+          props: true,
+          component: () =>
+            import(
+              /* webpackChunkName: "workspaces" */ "./views/workspace/Calendar.vue"
+            )
+        },
+        {
+          path: "members",
+          name: "workspace-members",
+          props: true,
+          component: () =>
+            import(
+              /* webpackChunkName: "workspaces" */ "./views/workspace/Members.vue"
+            )
+        },
+        {
+          path: "details",
+          name: "workspace-details",
+          props: true,
+          component: () =>
+            import(
+              /* webpackChunkName: "workspaces" */ "./views/workspace/Details.vue"
+            )
+        }
+      ]
     }
   ]
 });

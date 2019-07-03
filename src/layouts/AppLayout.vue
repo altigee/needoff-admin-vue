@@ -53,12 +53,8 @@
 
 <script>
 import { mapActions } from "vuex";
-import TransitionPage from "../components/TransitionPage";
 
 export default {
-  components: {
-    TransitionPage
-  },
   data: () => ({
     drawer: null
   }),

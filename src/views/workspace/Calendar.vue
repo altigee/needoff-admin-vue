@@ -2,9 +2,7 @@
   <v-card-text>
     <page-spinner v-if="loading" />
 
-    <p>{{ data.length }}</p>
-
-    <v-sheet height="500">
+    <v-sheet height="500" v-if="!loading">
       <v-calendar
         :now="'2019-11-01'"
         :value="'2019-11-01'"
@@ -23,7 +21,9 @@
               >
                 <v-avatar>
                   <img
-                    src="https://randomuser.me/api/portraits/men/5.jpg"
+                    :src="
+                      `https://randomuser.me/api/portraits/men/${item.id}.jpg`
+                    "
                     :alt="item.user.firstName"
                   />
                 </v-avatar>
@@ -40,7 +40,8 @@
 <script>
 import { isWithinRange } from "date-fns";
 import { filter } from "lodash";
-import { userName } from "../utils/user.utils";
+import { getWorkspaceCalendar } from "../../services/workspace.service";
+import { userName } from "../../utils/user.utils";
 
 const colors = {
   VACATION_PAID: "accent",
@@ -50,9 +51,27 @@ const colors = {
 };
 
 export default {
-  props: ["data", "loading"],
+  props: ["id"],
   data() {
-    return { colors };
+    return {
+      colors,
+      loading: true,
+      calendar: []
+    };
+  },
+  async mounted() {
+    this.loading = true;
+
+    try {
+      const data = await getWorkspaceCalendar(this.id);
+
+      this.ws = data.workspaceById;
+      this.calendar = data.teamCalendar;
+    } catch (error) {
+      console.error(error);
+    }
+
+    this.loading = false;
   },
   methods: {
     userName,
@@ -61,7 +80,7 @@ export default {
       return !!this.getVacationsForDate(date).length;
     },
     getVacationsForDate(date) {
-      return filter(this.data, leave =>
+      return filter(this.calendar, leave =>
         isWithinRange(date, leave.startDate, leave.endDate)
       );
     }
