@@ -33,6 +33,9 @@ export default new Vuex.Store({
     },
     setCurrentUser({ commit }, user) {
       commit("SET_CURRENT_USER", user);
+    },
+    networkError() {
+      console.error("NETWORK ISSUES!");
     }
   }
 });

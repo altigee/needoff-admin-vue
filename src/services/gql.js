@@ -9,9 +9,14 @@ export async function request(query, { variables } = {}) {
   try {
     return await client.request(query, variables);
   } catch (erroredResponse) {
-    const { errors } = erroredResponse.response;
+    const { response } = erroredResponse;
 
-    if (isTokenExpiredError(errors)) {
+    if (!response) {
+      store.dispatch("networkError");
+      throw erroredResponse;
+    }
+
+    if (isTokenExpiredError(response.errors)) {
       store.dispatch("logoutUser");
     }
 

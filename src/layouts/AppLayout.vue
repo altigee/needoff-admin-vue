@@ -46,7 +46,7 @@
     </v-content>
 
     <v-footer color="indigo" app>
-      <span class="white--text">&copy; Its your app</span>
+      <span class="white--text pl-2">&copy; Altigee 2019</span>
     </v-footer>
   </v-app>
 </template>
@@ -72,5 +72,6 @@ export default {
 <style scoped>
 .toolbar-title-link {
   text-decoration: none;
+  color: white;
 }
 </style>

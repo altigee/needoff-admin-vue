@@ -81,9 +81,37 @@ export async function getWorkspaceMembers(workspaceId) {
           lastName
           email
         }
+        balance {
+          leftPaidLeaves
+          totalPaidLeaves
+          leftUnpaidLeaves
+          totalUnpaidLeaves
+          leftSickLeaves
+          totalSickLeaves
+        }
       }
     }
   `);
 
   return res.workspaceMembers;
+}
+
+export async function getUserLeaves(workspaceId, userId) {
+  const res = await request(/* GraphQL */ ` {
+    userLeaves(workspaceId: ${workspaceId}, userId: ${userId}) {
+      id
+      startDate
+      endDate
+      leaveType
+      comment
+      approvedBy {
+        userId
+        firstName
+        lastName
+        position
+      }
+    }
+  }`);
+
+  return res.userLeaves;
 }
