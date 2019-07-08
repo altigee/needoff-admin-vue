@@ -115,3 +115,17 @@ export async function getUserLeaves(workspaceId, userId) {
 
   return res.userLeaves;
 }
+
+export async function addWorkspaceMember({ workspaceId, member }) {
+  const res = await request(/* GraphQL */ `
+    mutation {
+      addWorkspaceMember(
+        email: "${member.email}",
+        wsId: ${workspaceId}
+      ) {
+        ok
+      }
+    }`);
+
+  return res.addWorkspaceMember;
+}

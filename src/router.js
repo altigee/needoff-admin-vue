@@ -71,17 +71,36 @@ const router = new Router({
           props: true,
           component: () =>
             import(
-              /* webpackChunkName: "workspaces" */ "./views/workspace/Calendar.vue"
+              /* webpackChunkName: "workspaces-calendar" */ "./views/workspace/Calendar.vue"
             )
         },
         {
           path: "members",
-          name: "workspace-members",
           props: true,
           component: () =>
             import(
-              /* webpackChunkName: "workspaces" */ "./views/workspace/Members.vue"
-            )
+              /* webpackChunkName: "workspaces-members" */ "./views/workspace/Members.vue"
+            ),
+          children: [
+            {
+              path: "",
+              name: "workspace-members",
+              props: true,
+              component: () =>
+                import(
+                  /* webpackChunkName: "workspaces-members" */ "./views/workspace/MembersList.vue"
+                )
+            },
+            {
+              path: "new",
+              name: "workspace-member-add",
+              props: true,
+              component: () =>
+                import(
+                  /* webpackChunkName: "workspaces-members" */ "./views/workspace/MemberAdd.vue"
+                )
+            }
+          ]
         },
         {
           path: "details",
