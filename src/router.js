@@ -103,6 +103,15 @@ const router = new Router({
           ]
         },
         {
+          path: "leaves",
+          name: "workspace-leaves",
+          props: true,
+          component: () =>
+            import(
+              /* webpackChunkName: "workspaces" */ "./views/workspace/Leaves.vue"
+            )
+        },
+        {
           path: "details",
           name: "workspace-details",
           props: true,

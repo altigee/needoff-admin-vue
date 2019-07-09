@@ -11,3 +11,14 @@ export const THEME = {
   [TYPES.SICK_LEAVE]: "teal--text text--accent-4",
   [TYPES.WFH]: "grey"
 };
+
+export const LABEL = {
+  [TYPES.VACATION_PAID]: "Paid Vacation",
+  [TYPES.VACATION_UNPAID]: "Unpaid Vacation",
+  [TYPES.SICK_LEAVE]: "Sick Leave",
+  [TYPES.WFH]: "WFH"
+};
+
+export function getLabel(type = "") {
+  return LABEL[type] || "";
+}

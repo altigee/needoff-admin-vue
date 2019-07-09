@@ -35,6 +35,11 @@ export default {
         },
         {
           id: 3,
+          name: "Leaves",
+          routeName: "workspace-leaves"
+        },
+        {
+          id: 4,
           name: "Details",
           routeName: "workspace-details"
         }

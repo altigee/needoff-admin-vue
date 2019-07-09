@@ -18,16 +18,17 @@
                 :color="colors[item.leaveType]"
                 small
                 v-bind:key="item.id"
+                :title="userName(item.user)"
               >
                 <v-avatar>
                   <img
                     :src="
-                      `https://randomuser.me/api/portraits/men/${item.id}.jpg`
+                      `https://randomuser.me/api/portraits/men/${item.user.userId}.jpg`
                     "
-                    :alt="item.user.firstName"
                   />
                 </v-avatar>
-                {{ userName(item.user) }}
+
+                <span class="ellipsis">{{ userName(item.user) }}</span>
               </v-chip>
             </template>
           </v-layout>
@@ -41,7 +42,7 @@
 import { isWithinRange } from "date-fns";
 import { filter } from "lodash";
 import { getWorkspaceCalendar } from "../../services/workspace.service";
-import { userName } from "../../utils/user.utils";
+import { userInitials, userName } from "../../utils/user.utils";
 
 const colors = {
   VACATION_PAID: "accent",
@@ -75,6 +76,7 @@ export default {
   },
   methods: {
     userName,
+    userInitials,
     //
     hasVacation(date) {
       return !!this.getVacationsForDate(date).length;
@@ -88,7 +90,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="stylus" scoped>
 .v-card__text {
   padding-top: 64px;
 }
@@ -96,5 +98,9 @@ export default {
 .v-calendar-monthly {
   border-top: 1px solid #e0e0e0;
   border-left: 1px solid #e0e0e0;
+}
+
+.v-chip >>> .v-chip__content {
+  overflow: hidden;
 }
 </style>

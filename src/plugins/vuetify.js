@@ -14,3 +14,9 @@ Vue.use(Vuetify, {
 
 Vue.component("PageSpinner", PageSpinner);
 Vue.component("TransitionPage", TransitionPage);
+
+Vue.component("Pass", {
+  render() {
+    return this.$scopedSlots.default(this.$attrs);
+  }
+});
