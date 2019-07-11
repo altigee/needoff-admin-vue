@@ -96,6 +96,23 @@ export async function getWorkspaceMembers(workspaceId) {
   return res.workspaceMembers;
 }
 
+export async function getWorkspaceMembersList(workspaceId) {
+  const res = await request(/* GraphQL */ `
+    {
+      workspaceMembers(workspaceId: ${workspaceId}) {
+        profile {
+          userId
+          firstName
+          lastName
+          email
+        }
+      }
+    }
+  `);
+
+  return res.workspaceMembers;
+}
+
 export async function getUserLeaves(workspaceId, userId) {
   const res = await request(/* GraphQL */ ` {
     userLeaves(workspaceId: ${workspaceId}, userId: ${userId}) {
@@ -128,4 +145,73 @@ export async function addWorkspaceMember({ workspaceId, member }) {
     }`);
 
   return res.addWorkspaceMember;
+}
+
+export async function getLeaves(wsId) {
+  const res = await request(/* GraphQL */ `
+    {
+      dayOffs(workspaceId: ${wsId}) {
+        id
+        leaveType
+        user {
+          userId
+          firstName
+          lastName
+          email
+        }
+        comment
+        startDate
+        endDate
+        approvedBy {
+          userId
+          firstName
+          lastName
+          email
+        }
+      }
+    }
+  `);
+
+  return res.dayOffs;
+}
+
+export async function createLeave(leave) {
+  const res = await request(/* GraphQL */ `
+    mutation {
+      createDayOff(
+        startDate: "${leave.startDate}", 
+        endDate: "${leave.endDate}", 
+        type: "${leave.type}", 
+        workspaceId: ${leave.workspaceId},
+        userId: ${leave.userId},
+        comment: "${leave.comment}") {
+        errors
+        warnings
+        notes
+        dayOff {
+          id
+        }
+      }
+    }`);
+
+  return res.createDayOff;
+}
+
+export async function approveLeave(leaveId) {
+  const res = await request(/* GraphQL */ `mutation {
+    approveDayOff(dayOffId:${leaveId}){
+      ok
+      dayOff {
+        id
+        approvedBy {
+          userId
+          firstName
+          lastName
+          email
+        }
+      }
+    }
+  }`);
+
+  return res.approveDayOff;
 }

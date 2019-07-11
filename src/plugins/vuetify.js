@@ -4,6 +4,8 @@ import "vuetify/src/stylus/app.styl";
 
 import PageSpinner from "../components/PageSpinner";
 import TransitionPage from "../components/TransitionPage";
+import Datepicker from "../components/Datepicker";
+import ErrorsAlert from "../components/ErrorsAlert";
 
 Vue.use(Vuetify, {
   iconfont: "md",
@@ -14,6 +16,8 @@ Vue.use(Vuetify, {
 
 Vue.component("PageSpinner", PageSpinner);
 Vue.component("TransitionPage", TransitionPage);
+Vue.component("Datepicker", Datepicker);
+Vue.component("ErrorsAlert", ErrorsAlert);
 
 Vue.component("Pass", {
   render() {

@@ -104,12 +104,30 @@ const router = new Router({
         },
         {
           path: "leaves",
-          name: "workspace-leaves",
-          props: true,
           component: () =>
             import(
-              /* webpackChunkName: "workspaces" */ "./views/workspace/Leaves.vue"
-            )
+              /* webpackChunkName: "workspaces-leaves" */ "./views/workspace/Leaves.vue"
+            ),
+          children: [
+            {
+              path: "",
+              name: "workspace-leaves",
+              props: true,
+              component: () =>
+                import(
+                  /* webpackChunkName: "workspaces-leaves" */ "./views/workspace/LeavesList.vue"
+                )
+            },
+            {
+              path: "new",
+              name: "workspace-leave-add",
+              props: true,
+              component: () =>
+                import(
+                  /* webpackChunkName: "workspaces-leaves" */ "./views/workspace/LeaveAdd.vue"
+                )
+            }
+          ]
         },
         {
           path: "details",

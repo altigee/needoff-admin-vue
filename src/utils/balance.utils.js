@@ -1,3 +1,5 @@
+import { map } from "lodash";
+
 export const TYPES = {
   VACATION_PAID: "VACATION_PAID",
   VACATION_UNPAID: "VACATION_UNPAID",
@@ -22,3 +24,8 @@ export const LABEL = {
 export function getLabel(type = "") {
   return LABEL[type] || "";
 }
+
+export const typeOptions = map(TYPES, type => ({
+  text: getLabel(type),
+  value: type
+}));

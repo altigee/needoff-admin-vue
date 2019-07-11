@@ -40,3 +40,11 @@ function isTokenExpiredError(errors) {
   const is_token_expired = messages.includes("Invalid token.");
   return is_token_expired;
 }
+
+export function messagesToRootError(errors) {
+  return {
+    response: {
+      errors: errors.map(err => ({ message: err }))
+    }
+  };
+}

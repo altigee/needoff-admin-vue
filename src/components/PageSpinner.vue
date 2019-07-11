@@ -18,6 +18,7 @@ export default {};
   display: flex;
   justify-content: center;
   background: rgba(255, 255, 255, 0.7);
+  z-index: 1;
 
   .v-progress-circular {
     margin-top: 64px;
