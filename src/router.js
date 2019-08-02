@@ -99,6 +99,15 @@ const router = new Router({
                 import(
                   /* webpackChunkName: "workspaces-members" */ "./views/workspace/MemberAdd.vue"
                 )
+            },
+            {
+              path: ":userId/edit",
+              name: "workspace-member-edit",
+              props: true,
+              component: () =>
+                import(
+                  /* webpackChunkName: "workspaces-members" */ "./views/workspace/MemberEdit.vue"
+                )
             }
           ]
         },

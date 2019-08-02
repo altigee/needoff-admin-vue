@@ -4,11 +4,11 @@
 
     <v-sheet height="500" v-if="!loading">
       <v-calendar
-        :now="'2019-11-01'"
-        :value="'2019-11-01'"
+        v-model="start"
         type="month"
         color="primary"
         :weekdays="[1, 2, 3, 4, 5, 6, 0]"
+        ref="calendar"
       >
         <template v-slot:day="{ present, past, date }">
           <v-layout column>
@@ -35,6 +35,14 @@
         </template>
       </v-calendar>
     </v-sheet>
+
+    <v-btn @click="$refs.calendar.prev()">
+      <v-icon dark left>keyboard_arrow_left</v-icon>Prev
+    </v-btn>
+    <v-btn @click="$refs.calendar.next()">
+      Next
+      <v-icon right dark>keyboard_arrow_right</v-icon>
+    </v-btn>
   </v-card-text>
 </template>
 
@@ -55,9 +63,10 @@ export default {
   props: ["id"],
   data() {
     return {
-      colors,
       loading: true,
-      calendar: []
+      start: "2019-11-01",
+      calendar: [],
+      colors
     };
   },
   async mounted() {

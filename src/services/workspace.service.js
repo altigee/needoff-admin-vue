@@ -113,6 +113,36 @@ export async function getWorkspaceMembersList(workspaceId) {
   return res.workspaceMembers;
 }
 
+export async function getWorkspaceMember(workspaceId, userId) {
+  const res = await request(/* GraphQL */ ` {
+      workspaceMember(workspaceId: ${workspaceId}, userId: ${userId}) {
+        userId
+        startDate
+        profile {
+          firstName
+          lastName
+          email
+        }
+      }
+    }`);
+
+  return res.workspaceMember;
+}
+
+export async function updateWorkspaceMember(workspaceId, userId, user) {
+  const res = await request(/* GraphQL */ ` mutation {
+    updateWorkspaceMember(
+      wsId: ${workspaceId}, 
+      userId: ${userId}, 
+      startDate: "${user.startDate}"
+    ) {
+      ok
+    }
+  }`);
+
+  return res;
+}
+
 export async function getUserLeaves(workspaceId, userId) {
   const res = await request(/* GraphQL */ ` {
     userLeaves(workspaceId: ${workspaceId}, userId: ${userId}) {

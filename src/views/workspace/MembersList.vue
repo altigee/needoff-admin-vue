@@ -22,9 +22,18 @@
               </v-list-tile-avatar>
 
               <v-list-tile-content>
-                <v-list-tile-title>{{
-                  userName(member.profile)
-                }}</v-list-tile-title>
+                <v-list-tile-title>
+                  {{ userName(member.profile) }}
+                  <v-btn
+                    @click="onEditMember($event, member.userId)"
+                    color="primary"
+                    flat
+                    icon
+                    class="member-edit-btn"
+                  >
+                    <v-icon size="16">edit</v-icon>
+                  </v-btn>
+                </v-list-tile-title>
                 <v-list-tile-sub-title>{{
                   member.profile.email
                 }}</v-list-tile-sub-title>
@@ -131,6 +140,14 @@ export default {
     onAddMember() {
       this.$router.push({ name: "workspace-member-add" });
     },
+    onEditMember(e, userId) {
+      e.stopPropagation();
+
+      this.$router.push({
+        name: "workspace-member-edit",
+        params: { userId }
+      });
+    },
     leaveColor(type /* total, left */) {
       return BALANCE_THEME[type];
     }
@@ -152,5 +169,11 @@ export default {
   &::after {
     background: rgba(0, 0, 0, 0.12);
   }
+}
+
+.member-edit-btn {
+  margin: 0 8px;
+  width: 24px;
+  height: 24px;
 }
 </style>
