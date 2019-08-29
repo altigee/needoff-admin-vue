@@ -35,7 +35,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn flat exact :to="{ name: 'workspace-members' }">Cancel</v-btn>
+          <v-btn text exact :to="{ name: 'workspace-members' }">Cancel</v-btn>
           <v-btn color="primary" type="submit">Edit member</v-btn>
         </v-card-actions>
       </v-flex>

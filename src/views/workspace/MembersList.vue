@@ -4,44 +4,46 @@
 
     <div v-if="!loading">
       <v-layout row wrap justify-end>
-        <v-btn @click="onAddMember" outline color="primary">
+        <v-btn @click="onAddMember" outlined color="primary">
           <v-icon>add</v-icon>Add member
         </v-btn>
       </v-layout>
 
       <v-list two-line>
-        <v-list-group lazy v-for="member in members" v-bind:key="member.userId">
+        <v-list-group v-for="member in members" v-bind:key="member.userId">
           <template v-slot:activator>
-            <v-list-tile v-bind:key="member.userId">
-              <v-list-tile-avatar>
+            <v-list-item v-bind:key="member.userId">
+              <v-list-item-avatar>
                 <img
                   :src="
-                    `https://randomuser.me/api/portraits/men/${member.userId}.jpg`
+                    `https://randomuser.me/api/portraits/men/${
+                      member.userId
+                    }.jpg`
                   "
                 />
-              </v-list-tile-avatar>
+              </v-list-item-avatar>
 
-              <v-list-tile-content>
-                <v-list-tile-title>
+              <v-list-item-content>
+                <v-list-item-title>
                   {{ userName(member.profile) }}
                   <v-btn
                     @click="onEditMember($event, member.userId)"
                     color="primary"
-                    flat
+                    text
                     icon
                     class="member-edit-btn"
                   >
                     <v-icon size="16">edit</v-icon>
                   </v-btn>
-                </v-list-tile-title>
-                <v-list-tile-sub-title>{{
+                </v-list-item-title>
+                <v-list-item-subtitle>{{
                   member.profile.email
-                }}</v-list-tile-sub-title>
-              </v-list-tile-content>
+                }}</v-list-item-subtitle>
+              </v-list-item-content>
 
-              <v-list-tile-action>
+              <v-list-item-action>
                 <v-layout row wrap justify-space-between>
-                  <v-list-tile-action-text>
+                  <v-list-item-action-text>
                     <v-tooltip top>
                       <template v-slot:activator="{ on }">
                         <span
@@ -55,9 +57,9 @@
                       </template>
                       <span>Paid leaves</span>
                     </v-tooltip>
-                  </v-list-tile-action-text>
+                  </v-list-item-action-text>
 
-                  <v-list-tile-action-text>
+                  <v-list-item-action-text>
                     <v-tooltip top>
                       <template v-slot:activator="{ on }">
                         <span
@@ -73,9 +75,9 @@
                       </template>
                       <span>Unpaid leaves</span>
                     </v-tooltip>
-                  </v-list-tile-action-text>
+                  </v-list-item-action-text>
 
-                  <v-list-tile-action-text>
+                  <v-list-item-action-text>
                     <v-tooltip top>
                       <template v-slot:activator="{ on }">
                         <span
@@ -89,15 +91,15 @@
                       </template>
                       <span>Sick leaves</span>
                     </v-tooltip>
-                  </v-list-tile-action-text>
+                  </v-list-item-action-text>
                 </v-layout>
-              </v-list-tile-action>
-            </v-list-tile>
+              </v-list-item-action>
+            </v-list-item>
           </template>
 
-          <v-list-tile-content>
+          <v-list-item-content>
             <member-leaves :wsId="id" :userId="member.userId" />
-          </v-list-tile-content>
+          </v-list-item-content>
         </v-list-group>
       </v-list>
     </div>

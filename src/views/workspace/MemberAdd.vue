@@ -18,7 +18,6 @@
             v-model="modal"
             :return-value.sync="member.startDate"
             persistent
-            lazy
             full-width
             width="290px"
           >
@@ -33,7 +32,7 @@
             </template>
             <v-date-picker v-model="member.startDate" scrollable>
               <v-spacer></v-spacer>
-              <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
+              <v-btn text color="primary" @click="modal = false">Cancel</v-btn>
               <v-btn
                 flat
                 color="primary"
@@ -45,14 +44,14 @@
         </v-card-text>
 
         <v-card-text v-if="be_errors.length">
-          <v-alert :value="true" color="error" icon="warning" outline>{{
-            be_errors[0].message
-          }}</v-alert>
+          <v-alert :value="true" color="error" icon="warning" outlined>
+            {{ be_errors[0].message }}
+          </v-alert>
         </v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn flat exact :to="{ name: 'workspace-members' }">Cancel</v-btn>
+          <v-btn text exact :to="{ name: 'workspace-members' }">Cancel</v-btn>
           <v-btn color="primary" type="submit">Add member</v-btn>
         </v-card-actions>
       </v-flex>

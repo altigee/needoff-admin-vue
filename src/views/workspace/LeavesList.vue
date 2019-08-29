@@ -1,7 +1,7 @@
 <template>
   <v-card-text>
     <v-layout row wrap justify-end>
-      <v-btn @click="onAddLeave" outline color="primary">
+      <v-btn @click="onAddLeave" outlined color="primary">
         <v-icon>add</v-icon>Add leave
       </v-btn>
     </v-layout>
@@ -9,9 +9,10 @@
     <v-data-table
       :items="leaves"
       :headers="columns"
-      :pagination.sync="pagination"
-      hide-actions
-      expand
+      sort-by="startDate"
+      :sort-desc="true"
+      :items-per-page="-1"
+      hide-default-footer
       :loading="loading"
       class="member-leaves-table"
     >
@@ -24,7 +25,9 @@
                   <v-avatar size="24">
                     <img
                       :src="
-                        `https://randomuser.me/api/portraits/men/${item.user.userId}.jpg`
+                        `https://randomuser.me/api/portraits/men/${
+                          item.user.userId
+                        }.jpg`
                       "
                     />
                   </v-avatar>
@@ -63,7 +66,7 @@
                     :loading="item.loading"
                     color="info"
                     small
-                    outline
+                    outlined
                     class="pa-0 ma-0"
                     >Approve</v-btn
                   >
@@ -101,12 +104,7 @@ export default {
         { text: "Type", value: "leaveType" },
         { text: "Date", value: "startDate" },
         { text: "Approved by", value: "approvedBy", align: "right" }
-      ],
-      pagination: {
-        sortBy: "startDate",
-        descending: true,
-        rowsPerPage: -1
-      }
+      ]
     };
   },
   computed: {

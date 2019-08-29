@@ -56,14 +56,14 @@
             </v-card-text>
 
             <v-card-text v-if="be_errors.length">
-              <v-alert :value="true" color="error" icon="warning" outline>{{
+              <v-alert :value="true" color="error" icon="warning" outlined>{{
                 be_errors[0].message
               }}</v-alert>
             </v-card-text>
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn flat :to="{ name: 'login' }">Back to Login</v-btn>
+              <v-btn text :to="{ name: 'login' }">Back to Login</v-btn>
               <v-btn color="primary" type="submit">Register</v-btn>
             </v-card-actions>
           </v-card>

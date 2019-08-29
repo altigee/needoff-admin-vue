@@ -6,7 +6,7 @@
       :items="leaves"
       :headers="columns"
       class="member-leaves-table elevation-1"
-      hide-actions
+      hide-default-footer
     >
       <template v-slot:items="props">
         <td>{{ props.item.leaveType }}</td>

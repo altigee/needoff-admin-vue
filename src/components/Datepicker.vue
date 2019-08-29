@@ -4,7 +4,6 @@
     v-model="isModalVisible"
     :return-value.sync="date"
     width="460px"
-    lazy
   >
     <template v-slot:activator="{ on }">
       <v-text-field
@@ -18,10 +17,12 @@
 
     <v-date-picker v-model="date" scrollable landscape full-width>
       <v-spacer></v-spacer>
-      <v-btn flat color="secondary" @click="isModalVisible = false"
+      <v-btn text color="secondary" @click="isModalVisible = false"
         >Cancel</v-btn
       >
-      <v-btn outline color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
+      <v-btn outlined color="primary" @click="$refs.dialog.save(date)"
+        >OK</v-btn
+      >
     </v-date-picker>
   </v-dialog>
 </template>

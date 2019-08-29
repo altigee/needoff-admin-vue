@@ -17,7 +17,7 @@
       </v-flex>
 
       <v-flex class="no-grow">
-        <v-btn @click="onEditWorkspace" outline color="primary">
+        <v-btn @click="onEditWorkspace" outlined color="primary">
           <v-icon>edit</v-icon>Edit
         </v-btn>
       </v-flex>

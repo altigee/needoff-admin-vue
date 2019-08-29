@@ -1,6 +1,6 @@
 <template>
   <v-card-text v-if="items.length">
-    <v-alert :value="true" color="error" icon="warning" outline>
+    <v-alert :value="true" color="error" icon="warning" outlined>
       <ul>
         <li v-for="err in items" v-bind:key="err.message">{{ err.message }}</li>
       </ul>

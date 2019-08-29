@@ -4,23 +4,23 @@
       <v-layout column fill-height>
         <v-flex xs1>
           <v-list dense>
-            <v-list-tile>
-              <v-list-tile-content>
-                <v-list-tile-title>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>
                   <router-link :to="{ name: 'home' }">Home</router-link>
-                </v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile>
-              <v-list-tile-content>
-                <v-list-tile-title>Contact</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>Contact</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
           </v-list>
         </v-flex>
         <v-spacer></v-spacer>
         <v-flex xs1>
-          <v-btn flat @click="onLogout">
+          <v-btn text @click="onLogout">
             Log out
             <v-icon right dark>exit_to_app</v-icon>
           </v-btn>
@@ -28,14 +28,14 @@
       </v-layout>
     </v-navigation-drawer>
 
-    <v-toolbar color="indigo" dark fixed app>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+    <v-app-bar color="indigo" dark fixed app>
+      <!-- <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon> -->
       <v-toolbar-title>
         <router-link :to="{ name: 'home' }" class="toolbar-title-link"
           >Needoff admin</router-link
         >
       </v-toolbar-title>
-    </v-toolbar>
+    </v-app-bar>
 
     <v-content>
       <v-container fluid fill-height>

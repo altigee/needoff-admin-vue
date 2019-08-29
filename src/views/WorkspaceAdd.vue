@@ -39,14 +39,14 @@
         </v-layout>
 
         <v-flex v-if="!!be_errors.length" xs12 mt-2>
-          <v-alert :value="true" color="error" icon="warning" outline>{{
+          <v-alert :value="true" color="error" icon="warning" outlined>{{
             be_errors[0].message
           }}</v-alert>
         </v-flex>
 
         <v-layout mt-4>
           <v-btn color="primary" type="submit">add workspace</v-btn>
-          <v-btn flat @click="onCancel">cancel</v-btn>
+          <v-btn text @click="onCancel">cancel</v-btn>
         </v-layout>
       </v-layout>
     </v-form>

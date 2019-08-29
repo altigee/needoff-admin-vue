@@ -16,7 +16,7 @@
       </v-flex>
 
       <v-flex class="no-grow">
-        <v-btn @click="onAddWorkspaceInitiate" outline color="primary">
+        <v-btn @click="onAddWorkspaceInitiate" outlined color="primary">
           <v-icon>add</v-icon>Add workspace
         </v-btn>
       </v-flex>

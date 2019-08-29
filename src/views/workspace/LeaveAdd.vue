@@ -39,7 +39,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn v-if="!loading" flat exact :to="{ name: 'workspace-leaves' }"
+          <v-btn v-if="!loading" text exact :to="{ name: 'workspace-leaves' }"
             >Cancel</v-btn
           >
           <v-btn :loading="loading" color="primary" type="submit"

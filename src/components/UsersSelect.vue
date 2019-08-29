@@ -20,17 +20,17 @@
     </template>
 
     <template slot="item" slot-scope="data">
-      <v-list-tile-avatar>
+      <v-list-item-avatar>
         <img
           :src="
             `https://randomuser.me/api/portraits/men/${data.item.value}.jpg`
           "
         />
-      </v-list-tile-avatar>
-      <v-list-tile-content>
-        <v-list-tile-title>{{ data.item.text }}</v-list-tile-title>
-        <v-list-tile-sub-title>{{ data.item.email }}</v-list-tile-sub-title>
-      </v-list-tile-content>
+      </v-list-item-avatar>
+      <v-list-item-content>
+        <v-list-item-title>{{ data.item.text }}</v-list-item-title>
+        <v-list-item-subtitle>{{ data.item.email }}</v-list-item-subtitle>
+      </v-list-item-content>
     </template>
   </v-select>
 </template>
